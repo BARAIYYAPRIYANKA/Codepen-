@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaCss3, FaHtml5, FaJs } from "react-icons/fa";
 import { FcSettings } from "react-icons/fc";
-import SplitPane from "react-split-pane";
+import { PanelGroup, Panel } from "react-resizable-panels";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { html } from "@codemirror/lang-html";
@@ -19,8 +19,8 @@ const NewProject = () => {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [js, setJs] = useState("");
-  const [output, SetOutput] = useState("");
-  const [isTitle, setIsTitle] = useState("");
+  const [output, setOutput] = useState("");
+  const [isTitle, setIsTitle] = useState(false);
   const [title, setTitle] = useState("Untitled");
   const [alert, setAlert] = useState(false);
 
@@ -43,7 +43,7 @@ const NewProject = () => {
     </html>
     `;
 
-    SetOutput(combinedOutput);
+    setOutput(combinedOutput);
   };
 
   const saveProgram = async () => {
@@ -64,7 +64,7 @@ const NewProject = () => {
       })
       .catch((err) => console.log(err));
 
-    setInterval(() => {
+    setTimeout(() => {
       setAlert(false);
     }, 2000);
   };
@@ -168,121 +168,106 @@ const NewProject = () => {
         </header>
 
         {/* coding section */}
-        <div>
-          {/* horizontal  */}
-          <SplitPane
-            split="horizontal"
-            minSize={100}
-            maxSize={-100}
-            defaultSize={"50%"}
-          >
-            {/* top coding section */}
-            <SplitPane split="vertical" minSize={500}>
-              {/* html code */}
-              <div className="w-full h-full flex flex-col items-start justify-start">
-                <div className="w-full flex items-center justify-between">
-                  <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
-                    <FaHtml5 className="text-xl text-red-500" />
-                    <p className="text-primaryText font-semibold border-t-gray-500">
-                      HTML
-                    </p>
-                  </div>
+        <div className="w-full h-full flex flex-col">
+          <PanelGroup direction="vertical">
+            <Panel defaultSize={50} minSize={100}>
+              <PanelGroup direction="horizontal">
+                <Panel minSize={300}>
+                  <div className="w-full h-full flex flex-col items-start justify-start">
+                    <div className="w-full flex items-center justify-between">
+                      <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
+                        <FaHtml5 className="text-xl text-red-500" />
+                        <p className="text-primaryText font-semibold border-t-gray-500">
+                          HTML
+                        </p>
+                      </div>
 
-                  {/* icons */}
-
-                  <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
-                    <FcSettings className="text-xl " />
-                    <FaChevronDown className="text-xl text-primaryText" />
+                      <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                        <FcSettings className="text-xl " />
+                        <FaChevronDown className="text-xl text-primaryText" />
+                      </div>
+                    </div>
+                    <div className="w-full px-2 ">
+                      <CodeMirror
+                        value={html}
+                        height="600px"
+                        extensions={[javascript({ jsx: true })]}
+                        theme={"dark"}
+                        onChange={(value, viewUpdate) => {
+                          setHtml(value);
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="w-full px-2 ">
-                  <CodeMirror
-                    value={html}
-                    height="600px"
-                    extensions={[javascript({ jsx: true })]}
-                    theme={"dark"}
-                    onChange={(value, viewUpdate) => {
-                      setHtml(value);
-                    }}
-                  />
-                </div>
+                </Panel>
+                <Panel minSize={300}>
+                  <div className="w-full h-full flex flex-col items-start justify-start">
+                    <div className="w-full flex items-center justify-between">
+                      <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
+                        <FaCss3 className="text-xl text-sky-500" />
+                        <p className="text-primaryText font-semibold border-t-gray-500">
+                          CSS
+                        </p>
+                      </div>
+
+                      <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                        <FcSettings className="text-xl " />
+                        <FaChevronDown className="text-xl text-primaryText" />
+                      </div>
+                    </div>
+                    <div className="w-full px-2 ">
+                      <CodeMirror
+                        value={css}
+                        height="600px"
+                        extensions={[javascript({ jsx: true })]}
+                        theme={"dark"}
+                        onChange={(value, viewUpdate) => {
+                          setCss(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </Panel>
+                <Panel minSize={300}>
+                  <div className="w-full h-full flex flex-col items-start justify-start">
+                    <div className="w-full flex items-center justify-between">
+                      <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
+                        <FaJs className="text-xl text-yellow-500" />
+                        <p className="text-primaryText font-semibold border-t-gray-500">
+                          JS
+                        </p>
+                      </div>
+
+                      <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                        <FcSettings className="text-xl " />
+                        <FaChevronDown className="text-xl text-primaryText" />
+                      </div>
+                    </div>
+                    <div className="w-full px-2 ">
+                      <CodeMirror
+                        value={js}
+                        height="600px"
+                        extensions={[javascript({ jsx: true })]}
+                        theme={"dark"}
+                        onChange={(value, viewUpdate) => {
+                          setJs(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </Panel>
+              </PanelGroup>
+            </Panel>
+            <Panel minSize={100}>
+              <div className="bg-white" style={{ overflow: "hidden", height: "100%" }}>
+                <iframe
+                  title="Result"
+                  srcDoc={output}
+                  style={{ border: "none", width: "100%", height: "100%" }}
+                />
               </div>
-
-              <SplitPane split="vertical" minSize={500}>
-                {/* css code editor */}
-                <div className="w-full h-full flex flex-col items-start justify-start">
-                  <div className="w-full flex items-center justify-between">
-                    <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
-                      <FaCss3 className="text-xl text-sky-500" />
-                      <p className="text-primaryText font-semibold border-t-gray-500">
-                        CSS
-                      </p>
-                    </div>
-
-                    {/* icons */}
-
-                    <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
-                      <FcSettings className="text-xl " />
-                      <FaChevronDown className="text-xl text-primaryText" />
-                    </div>
-                  </div>
-                  <div className="w-full px-2 ">
-                    <CodeMirror
-                      value={css}
-                      height="600px"
-                      extensions={[javascript({ jsx: true })]}
-                      theme={"dark"}
-                      onChange={(value, viewUpdate) => {
-                        setCss(value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* js code editor */}
-                <div className="w-full h-full flex flex-col items-start justify-start">
-                  <div className="w-full flex items-center justify-between">
-                    <div className=" bg-secondary px-4 py-2 borer-t-4 flex items-center justify-center gap-3">
-                      <FaJs className="text-xl text-yellow-500" />
-                      <p className="text-primaryText font-semibold border-t-gray-500">
-                        JS
-                      </p>
-                    </div>
-
-                    {/* icons */}
-
-                    <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
-                      <FcSettings className="text-xl " />
-                      <FaChevronDown className="text-xl text-primaryText" />
-                    </div>
-                  </div>
-                  <div className="w-full px-2 ">
-                    <CodeMirror
-                      value={js}
-                      height="600px"
-                      extensions={[javascript({ jsx: true })]}
-                      theme={"dark"}
-                      onChange={(value, viewUpdate) => {
-                        setJs(value);
-                      }}
-                    />
-                  </div>
-                </div>
-              </SplitPane>
-            </SplitPane>
-
-            {/* bottom result section */}
-            <div
-              className="bg-white"
-              style={{ overflow: "hidden", height: "100%" }}
-            >
-              <iframe
-                title="Result"
-                srcDoc={output}
-                style={{ border: "none", width: "100%", height: "100%" }}
-              />
-            </div>
-          </SplitPane>
+            </Panel>
+          </PanelGroup>
         </div>
       </div>
     </>
@@ -290,4 +275,3 @@ const NewProject = () => {
 };
 
 export default NewProject;
-
