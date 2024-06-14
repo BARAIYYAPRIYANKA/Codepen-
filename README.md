@@ -37,7 +37,7 @@ A modern, web-based platform for creating, editing, and sharing HTML, CSS, and J
 
 ## Demo
 
-You can access a live demo of the project [here](https://codepen-dzgm.vercel.app/home/auth).
+You can access a live demo of the project [here](https://codepen-clone-7fde5.web.app).
 
 ## Technologies Used
 
