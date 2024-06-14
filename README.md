@@ -2,7 +2,19 @@
 
 A modern, web-based platform for creating, editing, and sharing HTML, CSS, and JavaScript projects. Inspired by [CodePen](https://codepen.io), this clone offers a live coding environment with real-time preview and project management capabilities.
 
-![Project Preview](path/to/screenshot.png) <!-- Replace with an actual screenshot -->
+## Note:
+- You have to login or sign up first to start coding.
+
+## Homepage
+![Project Preview](https://github.com/BARAIYYAPRIYANKA/Codepen-/blob/main/src/assets/img/home.png) <!-- Replace with an actual screenshot -->
+
+## Sign-in page
+![Project Preview](https://github.com/BARAIYYAPRIYANKA/Codepen-/blob/main/src/assets/img/sign-in.png)
+
+
+## New Project
+
+![Project Preview](https://github.com/BARAIYYAPRIYANKA/Codepen-/blob/main/src/assets/img/start-coding.png)
 
 ## Table of Contents
 
@@ -25,7 +37,7 @@ A modern, web-based platform for creating, editing, and sharing HTML, CSS, and J
 
 ## Demo
 
-You can access a live demo of the project [here]().
+You can access a live demo of the project [here](https://codepen-dzgm.vercel.app/home/auth).
 
 ## Technologies Used
 
